@@ -1,16 +1,89 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
-<title>我的数学论文</title>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <meta charset="UTF-8">
+  <title>复合Wythoff序列与斐波那契结构解析</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+    h1, h2, h3 { color: #333; }
+    .math-display { margin: 10px 0; }
+    hr { margin: 30px 0; }
+  </style>
 </head>
 <body>
+  <h1>复合 Wythoff 序列与斐波那契线性组合的结构解析</h1>
 
-<h2>Euler's Identity</h2>
-<p>
-\[ e^{i\pi} + 1 = 0 \]
-</p>
+  <hr>
+
+  <h2>1. 结构的核心：嵌套映射与黄金比</h2>
+
+  <h3>1.1 从基础：\(a(n)=\lfloor n\varphi\rfloor\)、\(b(n)=\lfloor n\varphi^2\rfloor\)</h3>
+  <p>
+    下、上 Wythoff 序列 \(a(n),b(n)\) 与黄金比 \(\varphi\) 高度耦合，满足关系：
+  </p>
+  <div class="math-display">
+    \[ b(n)=a(n)+n, \quad \varphi^2=\varphi+1 \]
+  </div>
+  <p>
+    当复合 \(a\) 与 \(b\) 时，由黄金比代数性质，映射可以用线性形式表现。
+  </p>
+
+  <h3>1.2 「指令串」与「函数嵌套」</h3>
+  <p>
+    每个复合指令串 \(\ell_1\ell_2\cdots\ell_k\) 代表先后用 \(b\) 或 \(a\) 转换输入 \(n\)。
+    嵌套过程中的取整误差，通过斐波那契递推关系捕捉，形成线性斐波那契表示。
+  </p>
+
+  <hr>
+
+  <h2>2. 线性斐波那契表达：系数与「权重」</h2>
+
+  <h3>2.1 「指令串」的权重 \(\sum \ell_i\)</h3>
+  <p>
+    每个指令串的「权重」影响最终系数，最终系数往往是相邻斐波那契数 \(F_{p},F_{p+1}\)。
+  </p>
+
+  <h3>2.2 线性组合：\(\alpha a(n)+\beta b(n)-\text{offset}\)</h3>
+  <p>
+    复合形成类似 \(\alpha a(n)+\beta b(n)\) 的结构，系数 \(\alpha, \beta\) 常为相邻斐波那契数。
+  </p>
+
+  <h3>2.3 常数项：纠偏与累积误差</h3>
+  <p>
+    取整带来的累计误差以常数项（offset）形式呈现，取决于 \(\ell_i\) 的具体选择。
+  </p>
+
+  <hr>
+
+  <h2>3. 「结构」的本质：\(\lfloor \varphi\cdot\) 多次 + Fibonacci 递推</h2>
+  <p>
+    其结构可总结为：
+  </p>
+  <ul>
+    <li><strong>数学底层：</strong> 黄金比满足 \(\varphi^2=\varphi+1\)</li>
+    <li><strong>基本对象：</strong> \(a(n)=\lfloor n\varphi\rfloor\)，\(b(n)=a(n)+n\)</li>
+    <li><strong>函数复合：</strong> 带来的取整误差层层累积，产生明确的斐波那契结构</li>
+    <li><strong>斐波那契现象：</strong> 每次函数嵌套推动系数以斐波那契数递推</li>
+    <li><strong>常数 offset：</strong> 层层误差累积成统一的「offset」公式</li>
+  </ul>
+
+  <hr>
+
+  <h2>4. 以往工作与「结构」的贯通</h2>
+  <ul>
+    <li><strong>Carlitz–Scoville–Hoggatt：</strong> 斐波那契表示与「words 的 weight」</li>
+    <li><strong>Kimberling：</strong> 「complementary equations」个别嵌套情况</li>
+    <li><strong>我们的工作：</strong> 给出统一闭式的全局表达，实现结构的一次性封装</li>
+  </ul>
+
+  <hr>
+
+  <h2>综上</h2>
+  <p>
+    此结构实现了对多次黄金比取整迭代与斐波那契递推的统一编码，以「offset」完美封装取整累积差值，从而达到一次性闭式表达的效果。
+  </p>
 
 </body>
 </html>
