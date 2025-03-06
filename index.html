@@ -1,88 +1,82 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>复合Wythoff序列与斐波那契结构解析</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Composite Wythoff Sequences and Fibonacci Linear Representation</title>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <style>
-    body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
-    h1, h2, h3 { color: #333; }
-    .math-display { margin: 10px 0; }
-    hr { margin: 30px 0; }
+    body { font-family: Times, serif; line-height: 1.6; margin: 2rem; max-width: 800px; }
+    h1, h2, h3 { color: #000; }
+    hr { margin: 2rem 0; }
+    .math-display { text-align: center; margin: 1rem 0; }
+    ul { padding-left: 1.5rem; }
   </style>
 </head>
 <body>
-  <h1>复合 Wythoff 序列与斐波那契线性组合的结构解析</h1>
+
+  <h1>Composite Wythoff Sequences and Fibonacci Linear Structures</h1>
 
   <hr>
 
-  <h2>1. 结构的核心：嵌套映射与黄金比</h2>
+  <h2>1. Core Structure: Nested Maps and the Golden Ratio</h2>
 
-  <h3>1.1 从基础：\(a(n)=\lfloor n\varphi\rfloor\)、\(b(n)=\lfloor n\varphi^2\rfloor\)</h3>
+  <h3>1.1 Basics: \(a(n)=\lfloor n\varphi\rfloor\), \(b(n)=\lfloor n\varphi^2\rfloor\)</h3>
   <p>
-    下、上 Wythoff 序列 \(a(n),b(n)\) 与黄金比 \(\varphi\) 高度耦合，满足关系：
+    Lower and upper Wythoff sequences \(a(n), b(n)\) are closely related to the golden ratio \(\varphi\), satisfying:
   </p>
-  <div class="math-display">
-    \[ b(n)=a(n)+n, \quad \varphi^2=\varphi+1 \]
+  <div>
+    \[ b(n)=a(n)+n, \quad \varphi^2=\varphi+1. \]
   </div>
   <p>
-    当复合 \(a\) 与 \(b\) 时，由黄金比代数性质，映射可以用线性形式表现。
+    Composing these functions (e.g., \(a(b(n))\) or \(b(a(n))\)) leverages the algebraic property of \(\varphi\).
   </p>
 
-  <h3>1.2 「指令串」与「函数嵌套」</h3>
+  <h3>1.2 Instruction Strings and Function Nesting</h3>
   <p>
-    每个复合指令串 \(\ell_1\ell_2\cdots\ell_k\) 代表先后用 \(b\) 或 \(a\) 转换输入 \(n\)。
-    嵌套过程中的取整误差，通过斐波那契递推关系捕捉，形成线性斐波那契表示。
+    Each composite instruction string \(\ell_1\ell_2\cdots\ell_k\) (with \(\ell_i\in\{1,2\}\)) represents sequentially applying the functions \(a\) or \(b\). Repeated floor operations introduce systematic rounding errors that are captured by linear Fibonacci expressions.
   </p>
 
   <hr>
 
-  <h2>2. 线性斐波那契表达：系数与「权重」</h2>
+  <h2>2. Linear Fibonacci Representation: Coefficients and Weights</h2>
 
-  <h3>2.1 「指令串」的权重 \(\sum \ell_i\)</h3>
+  <h3>2.1 Weights of Instruction Strings \(\sum \ell_i\)</h3>
   <p>
-    每个指令串的「权重」影响最终系数，最终系数往往是相邻斐波那契数 \(F_{p},F_{p+1}\)。
+    The weight \(\sum_{j=1}^{k} \ell_j\) of each instruction string closely determines the Fibonacci coefficients that appear.
   </p>
 
-  <h3>2.2 线性组合：\(\alpha a(n)+\beta b(n)-\text{offset}\)</h3>
+  <h3>2.2 Linear Combination: \(\alpha a(n)+\beta b(n)-\text{offset}\)</h3>
   <p>
-    复合形成类似 \(\alpha a(n)+\beta b(n)\) 的结构，系数 \(\alpha, \beta\) 常为相邻斐波那契数。
-  </p>
-
-  <h3>2.3 常数项：纠偏与累积误差</h3>
-  <p>
-    取整带来的累计误差以常数项（offset）形式呈现，取决于 \(\ell_i\) 的具体选择。
+    Composite functions form structures of the type \(\alpha a(n)+\beta b(n)\), with coefficients \(\alpha,\beta\) typically Fibonacci numbers. Each choice of \(\ell_i\) leads to predictable offsets.
   </p>
 
   <hr>
 
-  <h2>3. 「结构」的本质：\(\lfloor \varphi\cdot\) 多次 + Fibonacci 递推</h2>
-  <p>
-    其结构可总结为：
-  </p>
+  <h2>3. Essence of Structure: Repeated Floor Operations and Fibonacci Recurrences</h2>
   <ul>
-    <li><strong>数学底层：</strong> 黄金比满足 \(\varphi^2=\varphi+1\)</li>
-    <li><strong>基本对象：</strong> \(a(n)=\lfloor n\varphi\rfloor\)，\(b(n)=a(n)+n\)</li>
-    <li><strong>函数复合：</strong> 带来的取整误差层层累积，产生明确的斐波那契结构</li>
-    <li><strong>斐波那契现象：</strong> 每次函数嵌套推动系数以斐波那契数递推</li>
-    <li><strong>常数 offset：</strong> 层层误差累积成统一的「offset」公式</li>
+    <li><strong>Mathematical foundation:</strong> Algebraic properties of \(\varphi\).</li>
+    <li><strong>Basic objects:</strong> \(a(n)=\lfloor n\varphi\rfloor\), \(b(n)=a(n)+n\).</li>
+    <li><strong>Composition:</strong> Nested floor operations generate structured errors expressible via Fibonacci sequences.</li>
+    <li><strong>Fibonacci patterns:</strong> Recursive emergence of Fibonacci sequences.</li>
+    <li><strong>Unified offset:</strong> Errors accumulated systematically into a single closed-form offset.</li>
   </ul>
 
   <hr>
 
-  <h2>4. 以往工作与「结构」的贯通</h2>
+  <h2>4. Integration with Previous Work</h2>
   <ul>
-    <li><strong>Carlitz–Scoville–Hoggatt：</strong> 斐波那契表示与「words 的 weight」</li>
-    <li><strong>Kimberling：</strong> 「complementary equations」个别嵌套情况</li>
-    <li><strong>我们的工作：</strong> 给出统一闭式的全局表达，实现结构的一次性封装</li>
+    <li><strong>Carlitz–Scoville–Hoggatt:</strong> Initial recognition of Fibonacci structures without fully closed-form offset.</li>
+    <li><strong>Kimberling's complementary equations:</strong> Formalizes local corrections.</li>
+    <li><strong>Our contribution:</strong> Provides a comprehensive, unified closed-form solution.</li>
   </ul>
 
   <hr>
 
-  <h2>综上</h2>
+  <h2>Summary</h2>
   <p>
-    此结构实现了对多次黄金比取整迭代与斐波那契递推的统一编码，以「offset」完美封装取整累积差值，从而达到一次性闭式表达的效果。
+    The presented structure encapsulates complex nested golden-ratio-floor operations through a Fibonacci-linear combination, establishing a unified closed-form description.
   </p>
 
 </body>
