@@ -21,23 +21,31 @@
     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
   </script>
   <style>
-    /* 模拟 AMS 经典排版风格的基本样式 */
+    /* 
+      模拟 AMS 经典排版风格，并进行响应式设计，以在不同屏幕尺寸下都保持良好阅读体验
+    */
     body {
       font-family: "Times New Roman", serif;
       line-height: 1.6;
-      max-width: 900px;
+      /* 限制行宽，避免过长影响阅读 */
+      max-width: 65ch;
+      /* 在中等或大屏幕时，页面水平居中 */
       margin: 2em auto;
+      /* 左右内边距，用于小屏幕时提供间距 */
+      padding: 0 1em;
       background-color: #fff;
       color: #000;
-      padding: 0 1em;
     }
+
+    /* 标题样式 */
     h1, h2, h3 {
       text-align: center;
       margin-top: 1.5em;
       margin-bottom: 0.5em;
+      line-height: 1.3;
     }
     h1 {
-      font-size: 1.8em;
+      font-size: 1.6em;
     }
     h2 {
       font-size: 1.4em;
@@ -47,11 +55,15 @@
       font-size: 1.2em;
       margin-top: 1.5em;
     }
+
+    /* 段落样式 */
     p {
       text-indent: 2em;
       margin-top: 0.8em;
       margin-bottom: 0.8em;
     }
+
+    /* 链接样式 */
     a {
       color: #0645ad;
       text-decoration: none;
@@ -59,6 +71,7 @@
     a:hover {
       text-decoration: underline;
     }
+
     /* 数学公式与段落的间距微调 */
     .MathJax_Display {
       margin: 1em auto !important;
@@ -68,18 +81,34 @@
       text-align: center;
       display: block;
     }
-    /* 适度增加 proof / 定理等环境的可读性（若需要可自行调整） */
+
+    /* 定理、证明等环境可稍微突出 */
     .theorem, .proof {
       margin: 1em 0;
       padding: 1em;
       border-left: 3px solid #000;
       background: #f9f9f9;
     }
+
+    /*
+      响应式设计:
+      当屏幕宽度小于 768px 时，自动调整最大宽度和外边距
+      让移动端阅读更友好
+    */
+    @media (max-width: 768px) {
+      body {
+        margin: 1em auto;
+        max-width: 90%;
+        padding: 0 0.5em;
+      }
+      p {
+        text-indent: 1em; /* 减小移动端的首行缩进 */
+      }
+    }
   </style>
 </head>
 
 <body>
-
 
 <h1>我的新定理</h1>
 
@@ -154,7 +183,7 @@ $\varphi = \frac{1+\sqrt{5}}{2}$
 $x^2 = x + 1$
 的正根，并满足著名的极限关系
 $\lim_{n\to\infty}\frac{F_{n+1}}{F_n} = \varphi$。黄金分割率还有一个重要性质：对于任意正整数$n$，都有
-$\lfloor n\varphi \rfloor + \lfloor n\varphi^2 \rfloor = n\varphi^2 + n\varphi - \{ n\varphi \} - \{ n\varphi^2 \\} = n\varphi^2 + n\varphi - 1 = n - 1$
+$\lfloor n\varphi \rfloor + \lfloor n\varphi^2 \rfloor = n\varphi^2 + n\varphi - \{ n\varphi \} - \{ n\varphi^2 \} = n\varphi^2 + n\varphi - 1 = n - 1$
 的恒等式成立（其中$\{x\}$表示$x$的小数部分）。这实际上是上述 Beatty 定理互补性的体现 
 (<a href="https://zh.wikipedia.org/wiki/%E5%A8%81%E4%BD%90%E5%A4%AB%E6%B8%B8%E6%88%8F#:~:text=" target="_blank">威佐夫游戏 - 维基百科，自由的百科全书</a>)。
 </p>
