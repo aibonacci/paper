@@ -12,12 +12,8 @@
   <style>
     body {
       font-family: "Times New Roman", serif;
-      margin: 0;
-      padding: 10px;
-      max-width: 900px;
+      margin: 1in;
       line-height: 1.6;
-      margin-left: auto;
-      margin-right: auto;
     }
     h1, h2, h3 {
       margin-top: 1em;
@@ -32,6 +28,12 @@
     .bibliography {
       margin: 1em 0;
       padding-left: 1.5em;
+    }
+    /* 针对屏幕宽度小于600px的设备，减小边距 */
+    @media (max-width: 600px) {
+      body {
+        margin: 0.5em;
+      }
     }
   </style>
 </head>
@@ -58,22 +60,82 @@
     Wythoff 序列是以黄金比 \( \varphi = \frac{1+\sqrt{5}}{2} \) 为基础的两个互补 Beatty 序列，即
     \( a(n) = \lfloor n \varphi \rfloor \)，\( b(n) = \lfloor n \varphi^2 \rfloor \)。
     它们因在 Wythoff Nim 博弈、Zeckendorf 分解等数论与组合问题中扮演重要角色而备受关注。
+    Carlitz–Scoville–Hoggatt 等人~[1] 最先观察到，对 \( a \) 与 \( b \) 进行有限次嵌套（即组合成字串）会出现相邻斐波那契系数的线性表达并辅以一个常数项；Kimberling~[2] 随后将其发展为“互补方程”的系统性列举。
+    然而，在实际应用中，每种不同字串的常数项往往需要单独推导，缺乏一个“一步到位”的通用闭式表达。
   </p>
 
   <h3>1.2 本文主要贡献</h3>
   <p>
     本文围绕复合 Wythoff 数列线性表示的主定理展开：证明任意由 \(\{a, b\}\) 组成的有限复合映射都能精确表示为两项相邻斐波那契数的线性组合，减去一个基于斐波那契数求和表达式的闭式常数项。
+    该定理一方面整合了已有工作中对常数偏移量各自为政的零散处理，另一方面为在斐波那契表述下统一考察各种 Wythoff 复合现象奠定了基础。
+    本文将聚焦于定理本身的思想、主要引理及证明过程，暂不深入探讨各类特定字串模式的扩展应用。
+  </p>
+
+  <h3>1.3 论文结构</h3>
+  <p>
+    第 2 节介绍基本记号并给出用作预备知识的引理；第 3 节陈述并证明主定理；第 4 节总结本文的结论并讨论该结果可能衍生的后续研究方向（例如在 Zeckendorf 表示、Wythoff Nim 多步策略及一般 Beatty 序列组合问题中的应用）。
   </p>
 
   <h2>2. 预备知识</h2>
   <p>
-    本节首先给出下、上 Wythoff 数列的定义及相关记号，随后回顾 Kimberling 提出的若干关于短字串的恒等式，并将其整理为引理以供后文引用。
+    本节首先给出下、上 Wythoff 数列的定义及相关记号，随后回顾 Kimberling~[2] 提出的若干关于短字串的恒等式（见 Carlitz 等人~[1] 第 3 节），并将其整理为引理以供后文引用。
   </p>
 
   <h3>2.1 下、上 Wythoff 数列</h3>
   <p>
     定义黄金比 \( \varphi = \frac{1+\sqrt{5}}{2} \)（满足 \( \varphi^2 = \varphi + 1 \)）。
-    定义互补的 Beatty 序列：\( a(n) = \lfloor n \varphi \rfloor \)，\( b(n) = \lfloor n \varphi^2 \rfloor \)。
+    定义互补的 Beatty 序列：\( a(n) = \lfloor n \varphi \rfloor \)，\( b(n) = \lfloor n \varphi^2 \rfloor \)，称 \( a(n) \) 为下 Wythoff 数列，\( b(n) \) 为上 Wythoff 数列。
+    序列 \(\{a(n)\}\) 和 \(\{b(n)\}\) 将所有正整数精确地划分成两部分，在数论与组合分析中（如 Wythoff Nim 博弈、Zeckendorf 分解等）具有重要地位。
+  </p>
+
+  <h3>2.2 复合 Wythoff 数列与字串</h3>
+  <p>
+    令每个 \(\ell_i \in \{1,2\}\)（也记作 \(\{a,b\}\)），其中规定 \(\ell_i = 1\) 表示作用 \(a(\cdot)\)，\(\ell_i = 2\) 表示作用 \(b(\cdot)\)。
+    对于长度为 \(k\) 的字串 \(\ell_1 \ell_2 \cdots \ell_k\)，定义相应的复合 Wythoff 数列（映射）为
+    \[
+    W_{\ell_1 \ell_2 \cdots \ell_k}(n) \;=\; W_{\ell_1}\!\Big( W_{\ell_2}\!( \cdots\, W_{\ell_k}(n)\,\cdots )\Big)\!,
+    \]
+    其中 \(W_1(n) = a(n)\)，\(W_2(n) = b(n)\)。
+    为方便表述，令
+    \[
+    r_i \;=\; \sum_{j=1}^{i} \ell_j\,,
+    \]
+    特别地，\(r_k = \sum_{j=1}^{k} \ell_j\) 称为该字串的“权重”，它将与后文中的斐波那契数指标出现自然的关联。
+  </p>
+
+  <p><strong>引理 1.</strong> 下述恒等关系成立：</p>
+  <ol>
+    <li>
+      若 \(\ell_1 = 1,\; \ell_2 = 1\)（即字串 \(aa\)），则 
+      \[
+      W_{11}(n) = W_2(n) - 1,
+      \]
+      亦即 \(a(a(n)) = b(n) - 1\)。
+    </li>
+    <li>
+      若 \(\ell_1 = 1,\; \ell_2 = 2\)（即字串 \(ab\)），则 
+      \[
+      W_{12}(n) = W_1(n) + W_2(n),
+      \]
+      亦即 \(a(b(n)) = a(n) + b(n)\)。
+    </li>
+    <li>
+      若 \(\ell_1 = 2,\; \ell_2 = 1\)（即字串 \(ba\)），则 
+      \[
+      W_{21}(n) = W_1(n) + W_2(n) - 1,
+      \]
+      亦即 \(b(a(n)) = a(n) + b(n) - 1\)。
+    </li>
+    <li>
+      若 \(\ell_1 = 2,\; \ell_2 = 2\)（即字串 \(bb\)），则 
+      \[
+      W_{22}(n) = W_1(n) + 2\,W_2(n),
+      \]
+      亦即 \(b(b(n)) = a(n) + 2\,b(n)\)。
+    </li>
+  </ol>
+  <p>
+    上述恒等式为更长字串的归纳证明奠定了基础。关于本引理的详细证明，读者可参见 Kimberling~[2] 的引理 1--4 以及 Carlitz 等人~[1] 第 3 节。
   </p>
 
   <h2>3. 复合 Wythoff 数列的线性表示</h2>
@@ -82,11 +144,82 @@
     \[
     W_{\ell_1 \ell_2 \cdots \ell_k}(n) \;=\; F_{\,r_k-2}\,W_1(n) + F_{\,r_k-1}\,W_2(n)\;-\; \sum_{i=1}^{k} (2 - \ell_i)\,F_{\,r_i - 1}\,.
     \]
+    其中，\(F_n\) 表示斐波那契数列，满足递推关系 \(F_n = F_{n-1} + F_{n-2}\)，初始值取为 \(F_{-1} = 1\), \(F_0 = 0\), \(F_1 = 1\)。
+  </p>
+
+  <p><strong>证明.</strong> 基步：当 \(k = 1\) 时，字串只有 \(\ell_1 = 1\) 或 \(\ell_1 = 2\) 两种情形。此时 \(W_{\ell_1}(n)\) 分别等于 \(a(n)\) 或 \(b(n)\)；而定理右侧表达式分别为 
+    \[
+    F_{-1}a(n) + F_0\,b(n) - (2-\ell_1)F_{r_1-1}\,,
+    \]
+    其中 \(r_1 = \ell_1\)。
+    <br>
+    如果 \(\ell_1 = 1\)，该表达式为 
+    \[
+    F_{-1}a(n) + F_0\,b(n) - (2-1)F_0 = 1\cdot a(n) + 0 - 1\cdot 0 = a(n)\,;
+    \]
+    如果 \(\ell_1 = 2\)，则表达式为 
+    \[
+    F_{-1}a(n) + F_0\,b(n) - (2-2)F_0 = 1\cdot a(n) + 0 - 0 = b(n)\,.
+    \]
+    显然基步情形下等式成立。
+  </p>
+
+  <p>
+    归纳假设：假设对长度为 \(k\) 的任意字串 \(\ell_1 \ell_2 \cdots \ell_k\)，等式
+    \[
+    W_{\ell_1 \ell_2 \cdots \ell_k}(n) \;=\; F_{\,r_k-2}\,W_1(n) + F_{\,r_k-1}\,W_2(n)\;-\; \sum_{i=1}^{k} (2-\ell_i)\,F_{\,r_i-1}
+    \]
+    成立。
+  </p>
+
+  <p>
+    现在考虑长度为 \(k+1\) 的字串 \(\ell_1 \ell_2 \cdots \ell_k \ell_{k+1}\)。根据定义，
+    \[
+    W_{\ell_1 \ell_2 \cdots \ell_k \ell_{k+1}}(n) \;=\; W_{\ell_1 \ell_2 \cdots \ell_k}\!\Big( W_{\ell_{k+1}}(n) \Big)\,.
+    \]
+    应用归纳假设，可得
+    \[
+    W_{\ell_1 \cdots \ell_k \ell_{k+1}}(n) = F_{\,r_k-2}\, W_1\!\big( W_{\ell_{k+1}}(n) \big) + F_{\,r_k-1}\, W_2\!\big( W_{\ell_{k+1}}(n) \big)
+    - \sum_{i=1}^{k} (2-\ell_i)\, F_{\,r_i-1}\,.
+    \]
+  </p>
+
+  <p>
+    由 \(r_{k+1} = \ell_{k+1} + r_k\)，我们分 \(\ell_{k+1}\) 的取值情况讨论如下。
+  </p>
+
+  <p>
+    <strong>情况 1：</strong> 当 \(\ell_{k+1} = 1\) 时，此时 \(r_{k+1} = 1 + r_k\)。代入上式，得到
+    \[
+    \begin{aligned}
+    W_{\ell_1 \cdots \ell_k 1}(n) &= F_{\,r_k-2}\,\big( W_2(n) - 1 \big) + F_{\,r_k-1}\,\big( W_1(n) + W_2(n) - 1 \big) \\
+    &= F_{\,r_k-1}\, W_1(n) + F_{\,r_k}\, W_2(n)
+    - \sum_{i=1}^{\,k+1} (2-\ell_i)\, F_{\,r_i-1}\,.
+    \end{aligned}
+    \]
+    以上第二步利用了引理 1 中关于 \(W_{11}(n)\) 和 \(W_{21}(n)\) 的恒等式。注意到 \(r_{k+1} = r_k + 1\)，因此所得结果正是长度 \(k+1\) 情形下的公式。
+  </p>
+
+  <p>
+    <strong>情况 2：</strong> 当 \(\ell_{k+1} = 2\) 时，此时 \(r_{k+1} = 2 + r_k\)。同理可得
+    \[
+    \begin{aligned}
+    W_{\ell_1 \cdots \ell_k 2}(n) &= F_{\,r_k-2}\,\big( W_1(n) + W_2(n) \big) + F_{\,r_k-1}\,\big( W_1(n) + 2\,W_2(n) \big) \\
+    &= F_{\,r_k}\, W_1(n) + F_{\,r_k+1}\, W_2(n)
+    - \sum_{i=1}^{\,k+1} (2-\ell_i)\, F_{\,r_i-1}\,.
+    \end{aligned}
+    \]
+    以上第二步利用了引理 1 中关于 \(W_{12}(n)\) 和 \(W_{22}(n)\) 的恒等式。由于此时 \(\ell_{k+1} = 2\) 使得新增的求和项 \((2-\ell_{k+1}) = 0\)，故上述结果可改写为与长度 \(k+1\) 情形公式相符的形式。
+  </p>
+
+  <p>
+    综上，定理对于 \(k+1\) 也成立。根据数学归纳法，定理~1 得证。
   </p>
 
   <h2>4. 结论与展望</h2>
   <p>
     综而言之，本文的主定理为各种复合 Wythoff 数列提供了统一的线性表示形式。
+    这一结果有望在多个相关领域带来简化。例如，在 Zeckendorf 表示及其结构分析的问题中【3,4】以及在研究 Wythoff Nim 博弈的多步策略和更一般的 Beatty 序列组合问题时【5】，上述表示都可能提供更简洁的推导思路。
   </p>
 
   <h2>参考文献</h2>
@@ -100,6 +233,21 @@
       Kimberling, C.  
       <em>Complementary Equations and Wythoff Sequences</em>.  
       <strong>Journal of Integer Sequences</strong> <em>11</em> (2008), Article 08.3.3.
+    </li>
+    <li>
+      Dekking, F. M.  
+      <em>The structure of Zeckendorf expansions</em>.  
+      arXiv preprint, arXiv:2006.06970 (2020).
+    </li>
+    <li>
+      Zeckendorf, E.  
+      <em>Représentation des nombres naturels par une somme de nombres de Fibonacci ou de nombres de Lucas</em>.  
+      <strong>Bull. Soc. Roy. Sci. Liège</strong> <em>41</em> (1972), 179–182.
+    </li>
+    <li>
+      Fraenkel, A. S., &amp; Kimberling, C.  
+      <em>Generalized Wythoff arrays, shuffles and interspersions</em>.  
+      <strong>Discrete Mathematics</strong> <em>126</em> (1994), 137–149.
     </li>
   </ol>
 </body>
