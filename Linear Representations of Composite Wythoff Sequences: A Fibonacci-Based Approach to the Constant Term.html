@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Linear Representations of Composite Wythoff Sequences</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 引入 MathJax -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+          src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+  </script>
+  <style>
+    body {
+      font-family: "Times New Roman", serif;
+      margin: 1in;
+      line-height: 1.6;
+    }
+    h1, h2, h3, h4 {
+      margin-top: 1em;
+      margin-bottom: 0.5em;
+    }
+    .theorem, .lemma, .corollary {
+      margin: 1em 0;
+      padding: 0.75em;
+      border-left: 4px solid #ccc;
+      background: #f9f9f9;
+    }
+    .theorem-title, .lemma-title, .corollary-title {
+      font-weight: bold;
+      margin-bottom: 0.5em;
+    }
+    .abstract {
+      margin: 1em 0;
+      padding: 0.75em;
+      border-left: 4px solid #ccc;
+      background: #f1f1f1;
+    }
+    .keywords {
+      font-style: italic;
+      margin-top: 0.5em;
+    }
+    .references {
+      margin: 1em 0;
+      padding-left: 1.5em;
+    }
+    p {
+      margin: 1em 0;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Linear Representations of Composite Wythoff Sequences: A Fibonacci-Based Approach to the Constant Term</h1>
+<p><strong>Authors:</strong> Chuyu Liu, Chunqing Liu</p>
+
+<div class="abstract">
+  <p>
+    <strong>Abstract.</strong> Wythoff sequences 
+    \(\displaystyle a(n) = \lfloor n \varphi \rfloor\) and 
+    \(\displaystyle b(n) = \lfloor n \varphi^2 \rfloor\)
+    are the two complementary Beatty sequences based on the golden ratio 
+    \(\displaystyle \varphi = (1+\sqrt{5})/2\).
+    Their finite compositions often exhibit linear structures related to Fibonacci numbers 
+    (for example, 
+    \(\displaystyle b(a(b(a(n)))) = 3\,a(n) + 5\,b(n) - 6\)).
+    In this paper, we present a unified theorem showing that any finite composite Wythoff sequence 
+    can be expressed as a linear combination of two consecutive Fibonacci numbers minus a closed-form constant term given by a Fibonacci summation formula.
+    This result consolidates the previously scattered treatments of constant offsets for different composite patterns, 
+    and provides a basis for unified analysis in contexts such as Zeckendorf representations and related problems in number theory and combinatorics.
+  </p>
+</div>
+
+<p class="keywords">
+  <strong>Keywords:</strong> Composite Wythoff sequences, linear representation, closed-form constant term, Fibonacci numbers, Zeckendorf representation.
+</p>
+
+<hr>
+
+<h2>1. Introduction</h2>
+
+<h3>1.1 Background and Motivation</h3>
+<p>
+  Wythoff sequences are two complementary Beatty sequences associated with the golden ratio 
+  \(\displaystyle \varphi = (1+\sqrt{5})/2\), defined by 
+  \(\displaystyle a(n) = \lfloor n \varphi \rfloor\) 
+  and 
+  \(\displaystyle b(n) = \lfloor n \varphi^2 \rfloor\).
+  They are of interest due to their important role in combinatorial game theory (Wythoff Nim) and number theory (Zeckendorf decompositions), 
+  as they partition the positive integers into two interwoven sequences.
+  Carlitz--Scoville--Hoggatt&nbsp;\cite{Carlitz1972} were among the first to observe that nesting \(a\) and \(b\) a finite number of times 
+  (i.e. forming composite sequences) yields linear expressions in \(a(n)\) and \(b(n)\) with Fibonacci coefficients (accompanied by a constant term). 
+  Kimberling&nbsp;\cite{Kimberling2008} later developed this idea into a systematic enumeration of such “complementary equations.” 
+  However, in practical applications, the constant term for each distinct composite pattern often needs to be derived on a case-by-case basis, 
+  lacking a one-step unified closed-form expression.
+</p>
+
+<h3>1.2 Main Contribution</h3>
+<p>
+  In this paper, we present a unifying theorem that proves any finite composite Wythoff sequence (any finite composition of \(a\) and \(b\)) 
+  can be exactly represented as a linear combination of two adjacent Fibonacci numbers, minus a closed-form constant term given by a Fibonacci summation formula.
+  This theorem consolidates the previously <em>ad&nbsp;hoc</em> treatments of the constant offsets in earlier works, 
+  and lays a foundation for a unified examination of various composite Wythoff phenomena under a Fibonacci-based framework.
+  We focus on the idea of the theorem itself, including the key lemmas and the proof, 
+  and do not delve into extended applications for specific composition patterns.
+</p>
+
+<h3>1.3 Structure of the Paper</h3>
+<p>
+  Section&nbsp;2 introduces basic notation and provides some lemmas as preliminary results. 
+  Section&nbsp;3 states and proves the main theorem. 
+  Section&nbsp;4 summarizes our conclusions and discusses potential directions for further research 
+  (for example, applications to Zeckendorf representations and their structure&nbsp;\cite{Dekking2020,Zeckendorf1972}, 
+  multi-step strategies in Wythoff Nim, and general Beatty sequence composition problems&nbsp;\cite{Fraenkel1994}).
+</p>
+
+<hr>
+
+<h2>2. Preliminaries</h2>
+
+<h3>2.1 Lower and Upper Wythoff Sequences</h3>
+<p>
+  Define the golden ratio 
+  \(\displaystyle \varphi = \frac{1+\sqrt{5}}{2}\) 
+  (so that \(\displaystyle \varphi^2 = \varphi + 1\)).
+  Define the complementary Beatty sequences 
+  \(\displaystyle a(n) = \lfloor n \varphi \rfloor\) 
+  and 
+  \(\displaystyle b(n) = \lfloor n \varphi^2 \rfloor\).
+  We call \(a(n)\) the <em>lower Wythoff sequence</em> and \(b(n)\) the <em>upper Wythoff sequence</em>. 
+  The sequences \(\{a(n)\}\) and \(\{b(n)\}\) partition the positive integers, 
+  and they play important roles in number theory and combinatorial analysis 
+  (e.g., in Wythoff Nim and Zeckendorf representations).
+</p>
+
+<h3>2.2 Composite Wythoff Sequences and Strings</h3>
+<p>
+  Let each \(\ell_i \in \{1,2\}\) (also denoted \(\{a,b\}\)), 
+  where we interpret \(\ell_i = 1\) as the operation \(a(\cdot)\) and \(\ell_i = 2\) as \(b(\cdot)\).
+  For a string of length \(k\), \(\ell_1 \ell_2 \cdots \ell_k\), define the corresponding 
+  <em>composite Wythoff sequence</em> (mapping) by
+</p>
+<p>
+  \[
+    W_{\ell_1 \ell_2 \cdots \ell_k}(n) \;=\; W_{\ell_1}\!\Big(W_{\ell_2}\!\big(\cdots W_{\ell_k}(n)\cdots\big)\Big),
+  \]
+</p>
+<p>
+  where \(\displaystyle W_1(n) = a(n)\) and \(\displaystyle W_2(n) = b(n)\).
+  For convenience, define
+</p>
+<p>
+  \[
+    r_i = \sum_{j=1}^i \ell_j,
+  \]
+</p>
+<p>
+  the partial sum of the string up to position \(i\). In particular, 
+  \(\displaystyle r_k = \sum_{j=1}^k \ell_j\) is the <em>weight</em> of the entire string, 
+  which will naturally correspond to indices of Fibonacci numbers in what follows.
+</p>
+
+<div class="lemma">
+  <div class="lemma-title">Lemma</div>
+  <p>
+    The following identities hold for all \(n \ge 1\):
+  </p>
+  <ol>
+    <li>
+      If \(\ell_1 = 1,\, \ell_2 = 1\) (the string \(aa\)), then
+      \[
+        W_{11}(n) = W_2(n) - 1,
+      \]
+      i.e. \(\displaystyle a(a(n)) = b(n) - 1\).
+    </li>
+    <li>
+      If \(\ell_1 = 1,\, \ell_2 = 2\) (the string \(ab\)), then
+      \[
+        W_{12}(n) = W_1(n) + W_2(n),
+      \]
+      i.e. \(\displaystyle a(b(n)) = a(n) + b(n)\).
+    </li>
+    <li>
+      If \(\ell_1 = 2,\, \ell_2 = 1\) (the string \(ba\)), then
+      \[
+        W_{21}(n) = W_1(n) + W_2(n) - 1,
+      \]
+      i.e. \(\displaystyle b(a(n)) = a(n) + b(n) - 1\).
+    </li>
+    <li>
+      If \(\ell_1 = 2,\, \ell_2 = 2\) (the string \(bb\)), then
+      \[
+        W_{22}(n) = W_1(n) + 2\,W_2(n),
+      \]
+      i.e. \(\displaystyle b(b(n)) = a(n) + 2\,b(n)\).
+    </li>
+  </ol>
+  <p>
+    These identities form the base cases for proving formulas for longer strings by induction.
+    Detailed proofs of the equalities above can be found in Lemmas&nbsp;1--4 of Kimberling&nbsp;\cite{Kimberling2008} 
+    and Section&nbsp;3 of Carlitz et&nbsp;al.&nbsp;\cite{Carlitz1972}.
+  </p>
+</div>
+
+<hr>
+
+<h2>3. Linear Representations of Composite Wythoff Sequences</h2>
+
+<div class="theorem">
+  <div class="theorem-title">Theorem</div>
+  <p>
+    In the above notation, for any positive integer \(n\), we have
+  </p>
+  <p>
+    \[
+      W_{\ell_1 \ell_2 \cdots \ell_k}(n) 
+      \;=\;
+      F_{\,r_k - 2}\,W_1(n) 
+      \;+\;
+      F_{\,r_k - 1}\,W_2(n)
+      \;-\;
+      \sum_{i=1}^k (2 - \ell_i)\,F_{\,r_i - 1},
+    \]
+  </p>
+  <p>
+    where \(F_n\) denotes the Fibonacci numbers, defined by 
+    \(\displaystyle F_n = F_{n-1} + F_{n-2}\) with initial values 
+    \(\displaystyle F_{-1} = 1\), \(\displaystyle F_0 = 0\), \(\displaystyle F_1 = 1\).
+  </p>
+</div>
+
+<p><strong>Proof.</strong></p>
+<p>
+  <em>Base case.</em> For \(k = 1\), the string has either \(\ell_1 = 1\) or \(\ell_1 = 2\).
+  In these cases \(W_{\ell_1}(n)\) equals \(a(n)\) or \(b(n)\) respectively, 
+  while the right-hand side becomes
+</p>
+<p>
+  \[
+    F_{\ell_1 - 2}\,W_1(n) \;+\; F_{\ell_1 - 1}\,W_2(n) 
+    \;-\; (2 - \ell_1)\,F_{\,r_1 - 1},
+  \]
+</p>
+<p>
+  with \(r_1 = \ell_1\).
+  If \(\ell_1 = 1\), this is
+</p>
+<p>
+  \[
+    F_{-1}\,W_1(n) + F_0\,W_2(n) - (2 - 1)\,F_0 
+    = W_1(n) = a(n).
+  \]
+</p>
+<p>
+  If \(\ell_1 = 2\), we get
+</p>
+<p>
+  \[
+    F_0\,W_1(n) + F_1\,W_2(n) - (2 - 2)\,F_1 
+    = W_2(n) = b(n).
+  \]
+</p>
+<p>
+  Thus, the formula holds for \(k = 1\).
+</p>
+
+<p>
+  <em>Inductive step.</em> Suppose that for any string of length \(k\), the formula
+</p>
+<p>
+  \[
+    W_{\ell_1 \ell_2 \cdots \ell_k}(n) 
+    = 
+    F_{r_k - 2}\,W_1(n) 
+    + 
+    F_{r_k - 1}\,W_2(n) 
+    - 
+    \sum_{i=1}^k (2 - \ell_i)\,F_{\,r_i - 1}
+  \]
+</p>
+<p>
+  holds. Now consider an arbitrary string of length \(k+1\), 
+  \(\ell_1 \ell_2 \cdots \ell_k \ell_{k+1}\). By definition,
+</p>
+<p>
+  \[
+    W_{\ell_1 \ell_2 \cdots \ell_k \ell_{k+1}}(n) 
+    = 
+    W_{\ell_1 \ell_2 \cdots \ell_k}\!\Big( W_{\ell_{k+1}}(n) \Big).
+  \]
+</p>
+<p>
+  Applying the inductive hypothesis to the inner composition \(\ell_1 \cdots \ell_k\) 
+  (with \(W_{\ell_{k+1}}(n)\) as input) gives
+</p>
+<p>
+  \[
+    W_{\ell_1 \cdots \ell_k \ell_{k+1}}(n)
+    =
+    F_{r_k - 2}\,W_1\!\big( W_{\ell_{k+1}}(n) \big)
+    +
+    F_{r_k - 1}\,W_2\!\big( W_{\ell_{k+1}}(n) \big)
+    -
+    \sum_{i=1}^k (2 - \ell_i)\,F_{r_i - 1}.
+  \]
+</p>
+<p>
+  Since \(\displaystyle r_{k+1} = \ell_{k+1} + r_k\), we consider two cases:
+</p>
+<p>
+  <strong>Case 1:</strong> \(\ell_{k+1} = 1\). Then \(r_{k+1} = 1 + r_k\).
+  Using the identities from Lemma (items&nbsp;(1) and (3)), we get
+</p>
+<p>
+  \[
+    W_{\ell_1 \cdots \ell_k 1}(n)
+    =
+    F_{r_k - 2}\,\big( W_2(n) - 1 \big)
+    +
+    F_{r_k - 1}\,\big( W_1(n) + W_2(n) - 1 \big)
+    -
+    \sum_{i=1}^k (2 - \ell_i)\,F_{r_i - 1}.
+  \]
+</p>
+<p>
+  Simplifying yields
+</p>
+<p>
+  \[
+    F_{r_k - 1}\,W_1(n) 
+    + 
+    F_{r_k}\,W_2(n) 
+    - 
+    \sum_{i=1}^{k+1} (2 - \ell_i)\,F_{r_i - 1},
+  \]
+</p>
+<p>
+  which matches the same form with 
+  \(\displaystyle r_{k+1} - 2\) and \(\displaystyle r_{k+1} - 1\) 
+  in place of \(r_k - 2\) and \(r_k - 1\).
+</p>
+
+<p>
+  <strong>Case 2:</strong> \(\ell_{k+1} = 2\). Then \(r_{k+1} = 2 + r_k\).
+  Using identities (2) and (4) from Lemma, we get
+</p>
+<p>
+  \[
+    W_{\ell_1 \cdots \ell_k 2}(n)
+    =
+    F_{r_k - 2}\,\big( W_1(n) + W_2(n) \big)
+    +
+    F_{r_k - 1}\,\big( W_1(n) + 2\,W_2(n) \big)
+    -
+    \sum_{i=1}^k (2 - \ell_i)\,F_{r_i - 1}.
+  \]
+</p>
+<p>
+  This simplifies to
+</p>
+<p>
+  \[
+    F_{r_k}\,W_1(n)
+    +
+    F_{r_{k+1}}\,W_2(n)
+    -
+    \sum_{i=1}^{k+1} (2 - \ell_i)\,F_{r_i - 1},
+  \]
+</p>
+<p>
+  which again matches the same form with updated indices.
+</p>
+<p>
+  By mathematical induction, the theorem is proved.
+</p>
+
+<div class="corollary">
+  <div class="corollary-title">Corollary</div>
+  <p>
+    In particular, for any composite Wythoff sequence applied to \(n=1\), we have
+  </p>
+  <p>
+    \[
+      W_{\ell_1 \ell_2 \cdots \ell_k}(1) 
+      \;=\;
+      F_{\,r_k + 1}
+      \;-\;
+      \sum_{i=1}^k (2 - \ell_i)\,F_{\,r_i - 1}.
+    \]
+  </p>
+</div>
+
+<p><strong>Proof.</strong></p>
+<p>
+  Applying the theorem with \(n=1\), the right-hand side becomes
+</p>
+<p>
+  \[
+    F_{r_k - 2}\,W_1(1)
+    +
+    F_{r_k - 1}\,W_2(1)
+    -
+    \sum_{i=1}^k (2 - \ell_i)\,F_{r_i - 1}.
+  \]
+</p>
+<p>
+  Since \(\displaystyle W_1(1) = a(1) = 1\) and \(\displaystyle W_2(1) = b(1) = 2\),
+  it simplifies exactly to
+</p>
+<p>
+  \[
+    F_{r_k + 1} 
+    \;-\;
+    \sum_{i=1}^k (2 - \ell_i)\,F_{r_i - 1}.
+  \]
+</p>
+
+<hr>
+
+<h2>4. Conclusion and Outlook</h2>
+<p>
+  In summary, Theorem&nbsp;1 provides a unified closed-form linear representation for all composite Wythoff sequences. 
+  This result promises to simplify analyses in several related areas. 
+  For example, in problems involving Zeckendorf representations and their structural analysis&nbsp;\cite{Dekking2020,Zeckendorf1972}, 
+  as well as in studying multi-step strategies in Wythoff Nim and more general Beatty sequence combinations&nbsp;\cite{Fraenkel1994}, 
+  the above representation could offer more concise derivations.
+</p>
+
+<hr>
+
+<h2>References</h2>
+<ol class="references">
+  <li>
+    Carlitz, L., Scoville, R., &amp; Hoggatt, V. E. Jr.
+    <em>Fibonacci representations</em>.
+    <strong>Fibonacci Quart.</strong> <em>10</em> (1972), 1–28.
+    <span id="Carlitz1972"></span>
+  </li>
+  <li>
+    Kimberling, Clark.
+    <em>Complementary equations and Wythoff sequences</em>.
+    <strong>J. Integer Sequences</strong> <em>11</em> (2008), Article 08.3.3.
+    <span id="Kimberling2008"></span>
+  </li>
+  <li>
+    Dekking, F. M.
+    <em>The structure of Zeckendorf expansions</em>.
+    arXiv:2006.06970 (2020).
+    <span id="Dekking2020"></span>
+  </li>
+  <li>
+    Zeckendorf, Edouard.
+    <em>Repr&eacute;sentation des nombres naturels par une somme de nombres de Fibonacci ou de nombres de Lucas</em>.
+    <strong>Bull. Soc. Roy. Sci. Li&egrave;ge</strong> <em>41</em> (1972), 179–182.
+    <span id="Zeckendorf1972"></span>
+  </li>
+  <li>
+    Fraenkel, A. S., &amp; Kimberling, C.
+    <em>Generalized Wythoff arrays, shuffles and interspersions</em>.
+    <strong>Discrete Math.</strong> <em>126</em> (1994), 137–149.
+    <span id="Fraenkel1994"></span>
+  </li>
+</ol>
+
+</body>
+</html>
