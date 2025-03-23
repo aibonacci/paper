@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Linear Representations of Composite Wythoff Sequences</title>
+  <title>Linear Representations of Wythoff Compound Sequences</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- 引入 MathJax -->
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
@@ -50,7 +50,7 @@
 </head>
 <body>
 
-<h1>Linear Representations of Composite Wythoff Sequences: A Fibonacci-Based Approach to the Constant Term</h1>
+<h1>Linear Representations of Wythoff Compound Sequences: A Fibonacci-Based Approach to the Constant Term</h1>
 <p><strong>Authors:</strong> Chuyu Liu, Chunqing Liu</p>
 
 <div class="abstract">
@@ -63,15 +63,15 @@
     Their finite compositions often exhibit linear structures related to Fibonacci numbers 
     (for example, 
     \(\displaystyle b(a(b(a(n)))) = 3\,a(n) + 5\,b(n) - 6\)).
-    In this paper, we present a unified theorem showing that any finite composite Wythoff sequence 
+    In this paper, we present a unified theorem showing that any finite Wythoff compound sequence 
     can be expressed as a linear combination of two consecutive Fibonacci numbers minus a closed-form constant term given by a Fibonacci summation formula.
-    This result consolidates the previously scattered treatments of constant offsets for different composite patterns, 
+    This result consolidates the previously scattered treatments of constant offsets for different compound patterns, 
     and provides a basis for unified analysis in contexts such as Zeckendorf representations and related problems in number theory and combinatorics.
   </p>
 </div>
 
 <p class="keywords">
-  <strong>Keywords:</strong> Composite Wythoff sequences, linear representation, closed-form constant term, Fibonacci numbers, Zeckendorf representation.
+  <strong>Keywords:</strong> Wythoff Compound Sequences, linear representation, closed-form constant term, Fibonacci numbers, Zeckendorf representation.
 </p>
 
 <hr>
@@ -88,18 +88,18 @@
   They are of interest due to their important role in combinatorial game theory (Wythoff Nim) and number theory (Zeckendorf decompositions), 
   as they partition the positive integers into two interwoven sequences.
   Carlitz--Scoville--Hoggatt&nbsp;\cite{Carlitz1972} were among the first to observe that nesting \(a\) and \(b\) a finite number of times 
-  (i.e. forming composite sequences) yields linear expressions in \(a(n)\) and \(b(n)\) with Fibonacci coefficients (accompanied by a constant term). 
+  (i.e. forming compound sequences) yields linear expressions in \(a(n)\) and \(b(n)\) with Fibonacci coefficients (accompanied by a constant term). 
   Kimberling&nbsp;\cite{Kimberling2008} later developed this idea into a systematic enumeration of such “complementary equations.” 
-  However, in practical applications, the constant term for each distinct composite pattern often needs to be derived on a case-by-case basis, 
+  However, in practical applications, the constant term for each distinct compound pattern often needs to be derived on a case-by-case basis, 
   lacking a one-step unified closed-form expression.
 </p>
 
 <h3>1.2 Main Contribution</h3>
 <p>
-  In this paper, we present a unifying theorem that proves any finite composite Wythoff sequence (any finite composition of \(a\) and \(b\)) 
+  In this paper, we present a unifying theorem that proves any finite Wythoff compound sequence (any finite composition of \(a\) and \(b\)) 
   can be exactly represented as a linear combination of two adjacent Fibonacci numbers, minus a closed-form constant term given by a Fibonacci summation formula.
   This theorem consolidates the previously <em>ad&nbsp;hoc</em> treatments of the constant offsets in earlier works, 
-  and lays a foundation for a unified examination of various composite Wythoff phenomena under a Fibonacci-based framework.
+  and lays a foundation for a unified examination of various compound Wythoff phenomena under a Fibonacci-based framework.
   We focus on the idea of the theorem itself, including the key lemmas and the proof, 
   and do not delve into extended applications for specific composition patterns.
 </p>
@@ -132,12 +132,12 @@
   (e.g., in Wythoff Nim and Zeckendorf representations).
 </p>
 
-<h3>2.2 Composite Wythoff Sequences and Strings</h3>
+<h3>2.2 Wythoff Compound Sequences and Strings</h3>
 <p>
   Let each \(\ell_i \in \{1,2\}\) (also denoted \(\{a,b\}\)), 
   where we interpret \(\ell_i = 1\) as the operation \(a(\cdot)\) and \(\ell_i = 2\) as \(b(\cdot)\).
   For a string of length \(k\), \(\ell_1 \ell_2 \cdots \ell_k\), define the corresponding 
-  <em>composite Wythoff sequence</em> (mapping) by
+  <em>Wythoff compound sequence</em> (mapping) by
 </p>
 <p>
   \[
@@ -203,7 +203,7 @@
 
 <hr>
 
-<h2>3. Linear Representations of Composite Wythoff Sequences</h2>
+<h2>3. Linear Representations of Wythoff Compound Sequences</h2>
 
 <div class="theorem">
   <div class="theorem-title">Theorem</div>
@@ -376,7 +376,7 @@
 <div class="corollary">
   <div class="corollary-title">Corollary</div>
   <p>
-    In particular, for any composite Wythoff sequence applied to \(n=1\), we have
+    In particular, for any Wythoff compound sequence applied to \(n=1\), we have
   </p>
   <p>
     \[
@@ -418,7 +418,7 @@
 
 <h2>4. Conclusion and Outlook</h2>
 <p>
-  In summary, Theorem&nbsp;1 provides a unified closed-form linear representation for all composite Wythoff sequences. 
+  In summary, Theorem&nbsp;1 provides a unified closed-form linear representation for all Wythoff Compound Sequences. 
   This result promises to simplify analyses in several related areas. 
   For example, in problems involving Zeckendorf representations and their structural analysis&nbsp;\cite{Dekking2020,Zeckendorf1972}, 
   as well as in studying multi-step strategies in Wythoff Nim and more general Beatty sequence combinations&nbsp;\cite{Fraenkel1994}, 
